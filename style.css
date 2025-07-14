@@ -12,12 +12,10 @@ body {
     margin: 0;
     overflow: hidden;
 }
-
 @keyframes scrollBackground {
     from { background-position: 0 2000px; }
     to { background-position: 0 0; }
 }
-
 #overlay {
     background-color: rgba(0, 0, 0, 0.6);
     z-index: -10;
@@ -37,9 +35,13 @@ body {
     background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
     pointer-events: none;
 }
+img {
+    max-width: 700px;
+}
 #scroll-container {
     position: absolute;
-    width: 700px;
+    max-width: 700px;
+    padding: 15px;
     left: 0;
     right: 0;
     margin-left: auto;
