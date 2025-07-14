@@ -10,11 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Check for color codes
-
             if (line.startsWith('§3')) {
                 return `<div class="line teal">${line.slice(2)}</div>`;
             } else if (line.startsWith('§2')) {
                 return `<div class="line green">${line.slice(2)}</div>`;
+            } else if (line.includes('§7')) {
+                const [before, after] = line.split('§7', 2);
+                return `<div class="line">${before}<span class="gray">${after}</span></div>`;
             } else {
                 return `<div class="line">${line}</div>`;
             }

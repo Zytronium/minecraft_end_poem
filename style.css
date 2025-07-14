@@ -1,16 +1,21 @@
 body {
     background-image: url("dirt.png");
     background-repeat: repeat;
-    background-size: 180px;
+    background-size: 165px;
     background-position: 0 0;
     animation: scrollBackground 150s linear infinite;
     font-family: 'Minecraftia', 'Unicode Sans', 'Segoe UI', sans-serif;
     font-size: 24px;
-    color: #AAAAAA;
+    color: white;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
     white-space: pre-wrap;
     margin: 0;
     overflow: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.5)" /></svg>') 2 2, auto;
+    user-select: none;
+    -webkit-user-select: none;
+    color: rgba(255, 255, 255, 0.5);
+    -ms-user-select: none;
 }
 @keyframes scrollBackground {
     from { background-position: 0 2000px; }
@@ -32,16 +37,17 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.85) 100%);
     pointer-events: none;
 }
 img {
-    max-width: 700px;
+    max-width: 80vw;
+    width: 700px;
 }
 #scroll-container {
     position: absolute;
     max-width: 700px;
-    padding: 15px;
+    padding: 25px;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -63,6 +69,10 @@ img {
 .green {
     color: #00AA00;
     text-shadow: 1px 1px 2px rgba(0, 84, 0, 0.5);
+}
+.gray {
+    color: #AAAAAA;
+    text-shadow: 1px 1px 2px rgba(171, 171, 171, 0.4);
 }
 .obfuscated {
     color: white;
