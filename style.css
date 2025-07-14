@@ -19,7 +19,6 @@ body {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.5)" /></svg>') 2 2, auto;
     user-select: none;
     -webkit-user-select: none;
-    color: rgba(255, 255, 255, 0.5);
     -ms-user-select: none;
 }
 @keyframes scrollBackground {
