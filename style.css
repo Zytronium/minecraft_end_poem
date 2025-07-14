@@ -1,0 +1,78 @@
+body {
+    background-image: url("dirt.png");
+    background-repeat: repeat;
+    background-size: 180px;
+    background-position: 0 0;
+    animation: scrollBackground 150s linear infinite;
+    font-family: 'Minecraftia', 'Unicode Sans', 'Segoe UI', sans-serif;
+    font-size: 24px;
+    color: #AAAAAA;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    white-space: pre-wrap;
+    margin: 0;
+    overflow: hidden;
+}
+
+@keyframes scrollBackground {
+    from { background-position: 0 2000px; }
+    to { background-position: 0 0; }
+}
+
+#overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+#overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+    pointer-events: none;
+}
+#scroll-container {
+    position: absolute;
+    width: 700px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0;
+    animation: scroll 1600s linear forwards;
+}
+@keyframes scroll {
+    from { transform: translateY(100%); }
+    to { transform: translateY(-100%); }
+}
+.line {
+    margin-bottom: 1em;
+}
+.teal {
+    color: #00AAAA;
+    text-shadow: 1px 1px 2px rgba(0, 84, 84, 0.5);
+}
+.green {
+    color: #00AA00;
+    text-shadow: 1px 1px 2px rgba(0, 84, 0, 0.5);
+}
+.obfuscated {
+    color: white;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    display: inline-block;
+    animation: obfuscate 0.2s infinite steps(1);
+}
+@keyframes obfuscate {
+    from { content: ''; }
+    to { content: ''; }
+}
+@font-face {
+    font-family: 'Minecraftia';
+    src: url('./fonts/Minecraftia-Regular.ttf');
+}
