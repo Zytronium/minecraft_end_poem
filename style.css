@@ -3,7 +3,7 @@ body {
     background-repeat: repeat;
     background-size: 165px;
     background-position: 0 0;
-    animation: scrollBackground 150s linear infinite;
+    animation: scrollBackground 75s linear infinite;
     font-family: 'Minecraftia', 'Unicode Sans', 'Segoe UI', sans-serif;
     font-size: 24px;
     color: white;
@@ -18,7 +18,7 @@ body {
     -ms-user-select: none;
 }
 @keyframes scrollBackground {
-    from { background-position: 0 2000px; }
+    from { background-position: 0 1000px; }
     to { background-position: 0 0; }
 }
 #overlay {
@@ -53,14 +53,14 @@ img {
     margin-left: auto;
     margin-right: auto;
     bottom: 0;
-    animation: scroll 1600s linear forwards;
+    animation: scroll 1000s linear forwards;
 }
 @keyframes scroll {
     from { transform: translateY(100%); }
     to { transform: translateY(-100%); }
 }
 .line {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 .teal {
     color: #00AAAA;

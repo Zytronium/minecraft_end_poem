@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadPoem();
 
-// Optional audio autoplay workaround
+    // autoplay workaround
     document.addEventListener('click', () => {
         document.getElementById('bg-music').play().catch(() => {});
     }, { once: true });
