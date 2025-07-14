@@ -47,4 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', () => {
         document.getElementById('bg-music').play().catch(() => {});
     }, { once: true });
+
+    const svgCursor = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.5)" /></svg>\') 2 2, auto';
+
+    function updateCursor() {
+        const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (isFullscreen || cursorHiddenByTimeout) {
+            document.body.style.cursor = 'none';
+        } else {
+            document.body.style.cursor = svgCursor;
+        }
+    }
+
+    let cursorHiddenByTimeout = false;
+    let inactivityTimeout;
+
+    function resetInactivityTimer() {
+        if (cursorHiddenByTimeout) {
+            cursorHiddenByTimeout = false;
+            updateCursor();
+        }
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            cursorHiddenByTimeout = true;
+            updateCursor();
+        }, 3000); // 4 seconds of no input hides cursor
+    }
+
+    document.addEventListener('fullscreenchange', updateCursor);
+    document.addEventListener('webkitfullscreenchange', updateCursor);
+    document.addEventListener('mozfullscreenchange', updateCursor);
+    document.addEventListener('MSFullscreenChange', updateCursor);
+
+    // Listen for user input to reset timer & show cursor
+    ['mousemove', 'keydown', 'mousedown', 'touchstart'].forEach(evt => {
+        window.addEventListener(evt, resetInactivityTimer, { passive: true });
+    });
+
+    // Init on page load
+    resetInactivityTimer();
+    updateCursor()
 });
