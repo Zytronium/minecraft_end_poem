@@ -43,11 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadPoem();
 
-    // autoplay workaround
-    document.addEventListener('click', () => {
-        document.getElementById('bg-music').play().catch(() => {});
-    }, { once: true });
-
     const svgCursor = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.5)" /></svg>\') 2 2, auto';
 
     let cursorHiddenByTimeout = false;
@@ -95,4 +90,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resetInactivityTimer();
     updateCursor();
+
+    document.getElementById('start-btn').addEventListener('click', () => {
+        // Start the background music
+        const music = document.getElementById('bg-music');
+        if (music) {
+            music.play().catch(() => {
+                // autoplay workaround
+                document.addEventListener('click', () => {
+                    music.play().catch(() => {});
+                }, { once: true });
+            });
+        }
+
+        // Start the scroll animation
+        const scrollContainer = document.getElementById('scroll-container');
+        if (scrollContainer) {
+            scrollContainer.style.animationPlayState = 'running';
+        }
+        document.body.style.animationPlayState = 'running';
+
+        // Make the vignette effect stronger
+        document.body.classList.add('vignette-active');
+
+        // Change default cursor to be less intrusive
+        document.getElementById('start-overlay').style.display = 'none';
+
+        // Hide the start button
+        document.getElementById('start-btn').style.display = 'none';
+    })
 });
