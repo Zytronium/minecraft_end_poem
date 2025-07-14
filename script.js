@@ -50,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const svgCursor = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.5)" /></svg>\') 2 2, auto';
 
+    let cursorHiddenByTimeout = false;
+    let inactivityTimeout;
+    let lastFullscreenChange = 0;
+
     function updateCursor() {
         const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
         if (isFullscreen || cursorHiddenByTimeout) {
@@ -59,10 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    let cursorHiddenByTimeout = false;
-    let inactivityTimeout;
+    function resetInactivityTimer(event) {
+        // Ignore if input happened right after fullscreen change
+        if (Date.now() - lastFullscreenChange < 300) return;
 
-    function resetInactivityTimer() {
+        // (Try to) ignore F11 keydown
+        if (event && event.type === 'keydown' && event.key === 'F11') return;
+
         if (cursorHiddenByTimeout) {
             cursorHiddenByTimeout = false;
             updateCursor();
@@ -71,20 +78,21 @@ document.addEventListener('DOMContentLoaded', () => {
         inactivityTimeout = setTimeout(() => {
             cursorHiddenByTimeout = true;
             updateCursor();
-        }, 3000); // 4 seconds of no input hides cursor
+        }, 3000);
     }
 
-    document.addEventListener('fullscreenchange', updateCursor);
-    document.addEventListener('webkitfullscreenchange', updateCursor);
-    document.addEventListener('mozfullscreenchange', updateCursor);
-    document.addEventListener('MSFullscreenChange', updateCursor);
-
-    // Listen for user input to reset timer & show cursor
-    ['mousemove', 'keydown', 'mousedown', 'touchstart'].forEach(evt => {
+    ['mousemove', 'mousedown', 'touchstart'].forEach(evt => {
         window.addEventListener(evt, resetInactivityTimer, { passive: true });
     });
+    window.addEventListener('keydown', resetInactivityTimer, { passive: true });
 
-    // Init on page load
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
+        document.addEventListener(evt, () => {
+            lastFullscreenChange = Date.now();
+            updateCursor();
+        });
+    });
+
     resetInactivityTimer();
-    updateCursor()
+    updateCursor();
 });
